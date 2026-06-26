@@ -23,7 +23,7 @@ export default function Splash() {
       <button
         className="primary-btn"
         style={{ background: '#ffc72c', color: '#6f5400', maxWidth: 280 }}
-        onClick={() => navigate('/login')}
+        onClick={() => navigate('/home')}
       >
         Get Started
       </button>
