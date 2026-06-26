@@ -1,16 +1,25 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { matchPrograms } from '../data/programs';
-import { getProfile, getSavedIds, toggleSaved } from '../storage';
+import { getProfile, getSavedIds, isLoggedIn, toggleSaved } from '../storage';
 import { useState } from 'react';
 
 export default function Recommendations() {
+  const navigate = useNavigate();
   const profile = getProfile();
   const [savedIds, setSavedIds] = useState(getSavedIds());
 
   if (!profile) return <Navigate to="/eligibility" replace />;
 
   const matches = matchPrograms(profile);
+
+  function handleSave(id: string) {
+    if (!isLoggedIn()) {
+      navigate('/login', { state: { from: '/recommendations' } });
+      return;
+    }
+    setSavedIds(toggleSaved(id));
+  }
 
   return (
     <Layout title="Recommended Aid" back>
@@ -46,7 +55,7 @@ export default function Recommendations() {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span style={{ fontWeight: 600 }}>{p.category}</span>
             <button
-              onClick={() => setSavedIds(toggleSaved(p.id))}
+              onClick={() => handleSave(p.id)}
               style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: 16 }}
               aria-label="Save program"
             >
