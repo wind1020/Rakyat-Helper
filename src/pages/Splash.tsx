@@ -16,17 +16,46 @@ export default function Splash() {
         padding: 24,
       }}
     >
+      <div
+        style={{
+          width: 64,
+          height: 64,
+          borderRadius: 16,
+          background: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 30,
+          marginBottom: 16,
+        }}
+      >
+        🏛️
+      </div>
       <h1 style={{ fontSize: 28, marginBottom: 12 }}>Rakyat Helper</h1>
-      <p style={{ opacity: 0.9, marginBottom: 40 }}>
+      <p style={{ opacity: 0.9, marginBottom: 32, maxWidth: 280 }}>
         Your guide to government aid, simplified.
       </p>
       <button
         className="primary-btn"
-        style={{ background: '#ffc72c', color: '#6f5400', maxWidth: 280 }}
+        style={{ background: '#fff', color: '#00206e', maxWidth: 280, marginBottom: 16 }}
         onClick={() => navigate('/home')}
       >
-        Get Started
+        Get Started →
       </button>
+      <select
+        defaultValue="English"
+        style={{
+          background: 'rgba(255,255,255,0.12)',
+          color: '#fff',
+          border: '1px solid rgba(255,255,255,0.4)',
+          borderRadius: 999,
+          padding: '6px 14px',
+          fontSize: 13,
+        }}
+      >
+        <option style={{ color: '#000' }}>English</option>
+        <option style={{ color: '#000' }}>Bahasa Melayu</option>
+      </select>
     </div>
   );
 }

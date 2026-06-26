@@ -36,6 +36,21 @@ export default function Login() {
           textAlign: 'center',
         }}
       >
+        <div
+          style={{
+            width: 56,
+            height: 56,
+            margin: '0 auto 12px',
+            borderRadius: 12,
+            background: 'rgba(255,255,255,0.15)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 26,
+          }}
+        >
+          🏛️
+        </div>
         <h1 style={{ fontSize: 26, margin: '12px 0 8px' }}>Rakyat Helper</h1>
         <p style={{ opacity: 0.9, fontSize: 14 }}>
           Official gateway for Malaysian civic aid and social security services.
@@ -51,21 +66,46 @@ export default function Login() {
           />
         </div>
         <div className="field">
-          <label>PASSWORD</label>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <label style={{ marginBottom: 0 }}>PASSWORD</label>
+            <a style={{ fontSize: 13, color: '#00206e', fontWeight: 600 }} href="#">
+              Forgot Password?
+            </a>
+          </div>
           <input
             type="password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            style={{ marginTop: 6 }}
           />
         </div>
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 14,
+            marginBottom: 16,
+            cursor: 'pointer',
+          }}
+        >
+          <input type="checkbox" />
+          Remember this device
+        </label>
         {error && <p className="error-text">{error}</p>}
         <button type="submit" className="primary-btn">
-          Log In
+          Log In →
         </button>
       </form>
-      <p style={{ textAlign: 'center', fontSize: 13, color: '#444653' }}>
+      <p style={{ textAlign: 'center', fontSize: 13, color: '#444653', marginBottom: 4 }}>
         Don't have an account? <strong>Sign up</strong>
+      </p>
+      <p style={{ textAlign: 'center', fontSize: 12, color: '#747684' }}>
+        Privacy Policy &nbsp;•&nbsp; Terms of Service
+      </p>
+      <p style={{ textAlign: 'center', fontSize: 11, color: '#747684', paddingBottom: 16 }}>
+        © 2024 Malaysian Digital Service Bureau. Secure Site.
       </p>
     </div>
   );

@@ -6,6 +6,13 @@ import { getProfile } from '../storage';
 
 const CATEGORIES = ['All', 'Housing', 'Education', 'Health', 'Cash Assistance'];
 
+const CATEGORY_META: Record<string, { bg: string; color: string; icon: string }> = {
+  Health: { bg: '#ffdad6', color: '#93000a', icon: '🤍' },
+  Education: { bg: '#dce1ff', color: '#143ca9', icon: '🎓' },
+  Housing: { bg: '#ffdf99', color: '#5a4300', icon: '🏠' },
+  'Cash Assistance': { bg: '#e5e1e7', color: '#444653', icon: '💰' },
+};
+
 export default function Home() {
   const profile = getProfile();
   const [filter, setFilter] = useState('All');
@@ -46,27 +53,51 @@ export default function Home() {
         ))}
       </div>
 
-      <h3>Recommended Aid</h3>
-      {programs.map((p) => (
-        <div className="card" key={p.id} style={{ borderLeft: '4px solid #00206e' }}>
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: '#6f5400',
-              background: '#fff4d6',
-              padding: '2px 8px',
-              borderRadius: 999,
-            }}
-          >
-            {p.category.toUpperCase()}
-          </span>
-          <h4 style={{ margin: '8px 0 4px' }}>{p.name}</h4>
-          <p style={{ fontSize: 13, color: '#444653', margin: '0 0 8px' }}>{p.description}</p>
-          <p style={{ fontWeight: 700, margin: '0 0 12px' }}>{p.amount}</p>
-          <button className="primary-btn">{p.cta}</button>
-        </div>
-      ))}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <h3 style={{ margin: '0 0 8px' }}>Recommended Aid</h3>
+        <Link to="/eligibility" style={{ fontSize: 13, fontWeight: 600, color: '#00206e' }}>
+          See All
+        </Link>
+      </div>
+      {programs.map((p) => {
+        const meta = CATEGORY_META[p.category];
+        return (
+          <div className="card" key={p.id} style={{ borderLeft: '4px solid #00206e' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: meta.color,
+                  background: meta.bg,
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                }}
+              >
+                {p.category.toUpperCase()}
+              </span>
+              <span
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  background: meta.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 14,
+                }}
+              >
+                {meta.icon}
+              </span>
+            </div>
+            <h4 style={{ margin: '8px 0 4px' }}>{p.name}</h4>
+            <p style={{ fontSize: 13, color: '#444653', margin: '0 0 8px' }}>{p.description}</p>
+            <p style={{ fontWeight: 700, margin: '0 0 12px' }}>{p.amount}</p>
+            <button className="primary-btn">{p.cta}</button>
+          </div>
+        );
+      })}
 
       <div
         style={{

@@ -13,6 +13,12 @@ export default function Recommendations() {
 
   const matches = matchPrograms(profile);
 
+  const STATUS = [
+    { label: 'Eligible', bg: '#d4f4dd', color: '#1a8a3a', icon: '💰' },
+    { label: 'Likely Eligible', bg: '#ffdf99', color: '#5a4300', icon: '🏢' },
+    { label: 'Verified', bg: '#dce1ff', color: '#143ca9', icon: '💼' },
+  ];
+
   function handleSave(id: string) {
     if (!isLoggedIn()) {
       navigate('/login', { state: { from: '/recommendations' } });
@@ -50,27 +56,57 @@ export default function Recommendations() {
         </h2>
       </div>
 
-      {matches.map((p) => (
-        <div className="card" key={p.id}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontWeight: 600 }}>{p.category}</span>
-            <button
-              onClick={() => handleSave(p.id)}
-              style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: 16 }}
-              aria-label="Save program"
-            >
-              {savedIds.includes(p.id) ? '🔖' : '🏷️'}
-            </button>
+      {matches.map((p, i) => {
+        const status = STATUS[i % STATUS.length];
+        return (
+          <div className="card" key={p.id}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <span
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 8,
+                  background: status.bg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 16,
+                }}
+              >
+                {status.icon}
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: status.color,
+                    background: status.bg,
+                    padding: '3px 10px',
+                    borderRadius: 999,
+                  }}
+                >
+                  ✓ {status.label}
+                </span>
+                <button
+                  onClick={() => handleSave(p.id)}
+                  style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: 16 }}
+                  aria-label="Save program"
+                >
+                  {savedIds.includes(p.id) ? '🔖' : '🏷️'}
+                </button>
+              </div>
+            </div>
+            <h4 style={{ margin: '8px 0 4px' }}>{p.name}</h4>
+            <p style={{ fontSize: 13, color: '#444653' }}>{p.description}</p>
+            <p style={{ fontSize: 11, color: '#444653', textTransform: 'uppercase', margin: '8px 0 0' }}>
+              {p.amount.toLowerCase().includes('coverage') ? 'Coverage' : 'Potential Amount'}
+            </p>
+            <p style={{ fontWeight: 700, fontSize: 18, margin: '0 0 12px' }}>{p.amount}</p>
+            <button className="primary-btn">{p.cta}</button>
           </div>
-          <h4 style={{ margin: '8px 0 4px' }}>{p.name}</h4>
-          <p style={{ fontSize: 13, color: '#444653' }}>{p.description}</p>
-          <p style={{ fontSize: 11, color: '#444653', textTransform: 'uppercase', margin: '8px 0 0' }}>
-            Potential Amount
-          </p>
-          <p style={{ fontWeight: 700, fontSize: 18, margin: '0 0 12px' }}>{p.amount}</p>
-          <button className="primary-btn">{p.cta}</button>
-        </div>
-      ))}
+        );
+      })}
 
       <div className="card" style={{ background: '#f1ecf2', textAlign: 'center' }}>
         <h4 style={{ margin: '0 0 4px' }}>Need more help?</h4>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { getProfile } from '../storage';
+import { getProfile, getSavedIds } from '../storage';
 import { matchPrograms, PROGRAMS } from '../data/programs';
 
 type Message = { from: 'bot' | 'user'; text: string };
@@ -61,7 +62,9 @@ export default function Chat() {
             key={i}
             style={{
               alignSelf: m.from === 'user' ? 'flex-end' : 'flex-start',
-              background: m.from === 'user' ? '#dce1ff' : '#f1ecf2',
+              background: m.from === 'user' ? '#fff' : '#f1ecf2',
+              border: m.from === 'user' ? '1.5px solid #0032a0' : 'none',
+              color: m.from === 'user' ? '#00206e' : '#1c1b1f',
               borderRadius: 10,
               padding: '10px 12px',
               maxWidth: '85%',
@@ -71,6 +74,30 @@ export default function Chat() {
             {m.text}
           </div>
         ))}
+
+        <div
+          style={{
+            alignSelf: 'flex-start',
+            maxWidth: '85%',
+            background: '#fff8e1',
+            border: '1.5px solid var(--gold)',
+            borderRadius: 10,
+            padding: '10px 12px',
+          }}
+        >
+          <p style={{ fontSize: 11, fontWeight: 700, color: '#6f5400', margin: '0 0 4px' }}>
+            AI SMART SUGGESTION
+          </p>
+          <p style={{ fontSize: 14, margin: '0 0 8px' }}>
+            You have {getSavedIds().length} saved aid program{getSavedIds().length === 1 ? '' : 's'}. Do you
+            want to review them?
+          </p>
+          <Link to="/saved">
+            <button className="primary-btn" style={{ padding: '8px 14px', width: 'auto', fontSize: 13 }}>
+              Review Saved Aid
+            </button>
+          </Link>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>

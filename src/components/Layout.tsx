@@ -16,10 +16,14 @@ export default function Layout({
   return (
     <div className="app-shell">
       <div className="topbar">
-        {back && (
+        {back ? (
           <button className="icon-btn" onClick={() => navigate(-1)} aria-label="Back">
             ←
           </button>
+        ) : (
+          <span className="icon-btn" aria-hidden>
+            ☰
+          </span>
         )}
         <span style={{ flex: 1 }}>{title}</span>
         <button
