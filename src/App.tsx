@@ -19,38 +19,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/home"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/eligibility"
-          element={
-            <RequireAuth>
-              <Eligibility />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/recommendations"
-          element={
-            <RequireAuth>
-              <Recommendations />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/chat"
-          element={
-            <RequireAuth>
-              <Chat />
-            </RequireAuth>
-          }
-        />
+        <Route path="/home" element={<Home />} />
+        <Route path="/eligibility" element={<Eligibility />} />
+        <Route path="/recommendations" element={<Recommendations />} />
+        <Route path="/chat" element={<Chat />} />
         <Route
           path="/saved"
           element={
